@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
   <meta charset="UTF-8">
@@ -22,9 +22,9 @@
     <section class="container-adicionar-tarefa">
       <h2>Digite o nome da sua tarefa para adiciona-la ao board</h2>
       <div class="container-input-tarefa">
-        <input placeholder="Digite aqui..." type="text" name="mensagem" id="mensagem">
-        <button>
-          <img src="./image/add.svg" alt="Icone de mais">
+        <input maxlength="45" placeholder="Digite aqui..." type="text" name="mensagem" id="mensagem">
+        <button id="botao-adicionar-tarefa">
+          <img src="./imagens/adicionar.svg" alt="Icone de mais">
         </button>
       </div>
     </section>
@@ -35,20 +35,20 @@
           <p>A fazer</p>
         </div>
 
-        <div class="container-tarefas">
+        <div class="container-tarefas container-tarefas-a-fazer">
           <div class="tarefa-a-fazer">
             <div class="task-nome">
-              <img src="./image/waiting.svg" alt="Icone de um circulo com 3 pontos">
+              <img src="./imagens/a-fazer.svg" alt="Icone de um circulo com 3 pontos">
               <p>Fazer exercicíos de lógica com JavaScript</p>
             </div>
 
             <div class="task-acoes">
               <button>
-                <img src="./image/time.svg" alt="Icone de um relogio com seta pra cima">
+                <img src="./imagens/relogio.svg" alt="Icone de um relogio com seta pra cima">
               </button>
 
               <button>
-                <img src="./image/lixeira.svg" alt="Icone de uma lixeira">
+                <img src="./imagens/lixeira.svg" alt="Icone de uma lixeira">
               </button>
             </div>
           </div>
@@ -63,17 +63,17 @@
         <div class="container-tarefas">
           <div class="tarefa-a-fazer">
             <div class="task-nome">
-              <img src="./image/clock.svg" alt="Icone de relogio">
+              <img src="./imagens/relogio-em-andamento.svg" alt="Icone de relogio">
               <p>Fazer exercicíos de lógica com JavaScript</p>
             </div>
 
             <div class="task-acoes task-acoes-andamento">
               <button>
-                <img src="./image/check.svg" alt="Icone de um check">
+                <img src="./imagens/check.svg" alt="Icone de um check">
               </button>
 
               <button>
-                <img src="./image/lixeira.svg" alt="Icone de uma lixeira">
+                <img src="./imagens/lixeira.svg" alt="Icone de uma lixeira">
               </button>
             </div>
           </div>
@@ -88,13 +88,13 @@
         <div class="container-tarefas">
           <div class="tarefa-a-fazer">
             <div class="task-nome">
-              <img src="./image/check.svg" alt="Icone de um circulo com com check">
+              <img src="./imagens/feito.svg" alt="Icone de um circulo com com check">
               <p>Fazer exercicíos de lógica com JavaScript</p>
             </div>
 
-            <div class="task-acoes">
+            <div class="task-acoes task-acoes-feito">
               <button>
-                <img src="./image/lixeira.svg" alt="Icone de uma lixeira">
+                <img src="./imagens/lixeira.svg" alt="Icone de uma lixeira">
               </button>
             </div>
           </div>
