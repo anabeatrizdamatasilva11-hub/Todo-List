@@ -1,7 +1,8 @@
+// ------------- Buscar elementos
 const botaoAdicionarTarefa = document.getElementById('botao-adicionar-tarefa') // -> Busca o botao de adicionar
 const containerTarefasAfazer = document.querySelector('.container-tarefas-a-fazer') // -> Busca a div com todas as tarefas da coluna a fazer
-const botaoExcluir = document.querySelector('.botao-excluir')
 
+// ------------- Funcao para adicionar a tarefa ao LocalStorage
 function adicionaTarefaFazerLocalStorage(tarefa) { // -> Funcao para adicionar no localStorage
   const tarefasAdicionadas = localStorage.getItem('tarefasFazer') // -> Busca o conteudo ja adicionado no localStorage
 
@@ -17,6 +18,7 @@ function adicionaTarefaFazerLocalStorage(tarefa) { // -> Funcao para adicionar n
   localStorage.setItem('tarefasFazer', jsonLista) // -> Adiciona todo conteudo no localStorage
 }
 
+// Funcao para adicionar a tarefa de a fazer na tela
 function criarTarefaAfazer(nomeTarefa) { // -> Funcao para mostrar a tarefa na tela
   const div = document.createElement('div') // -> Cria uma div vazia
   div.classList.add('tarefa-a-fazer') // -> Adiciona a classe `tarefa-a-fazer`na div criada na linha de cima
@@ -24,17 +26,17 @@ function criarTarefaAfazer(nomeTarefa) { // -> Funcao para mostrar a tarefa na t
   // -> Da linha 24 ate a 38 estamos adicionando todo conteudo da div vazia criada a cima
   div.innerHTML = `
     <div class="task-nome">
-      <img src="./image/waiting.svg" alt="Icone de um circulo com 3 pontos">
-      <p>${nomeTarefa}</p>
+      <img src="./imagens/a-fazer.svg" alt="Icone de um circulo com 3 pontos">
+      <p class="nome-tarefa">${nomeTarefa}</p>
     </div>
 
     <div class="task-acoes">
       <button>
-        <img src="./image/clock.svg" alt="Icone de um relogio com seta pra cima">
+        <img src="./imagens/relogio.svg" alt="Icone de um relogio com seta pra cima">
       </button>
 
       <button class="botao-excluir">
-        <img src="./image/lixeira.svg" alt="Icone de uma lixeira">
+        <img src="./imagens/lixeira.svg" alt="Icone de uma lixeira">
       </button>
     </div>
   `
@@ -42,7 +44,8 @@ function criarTarefaAfazer(nomeTarefa) { // -> Funcao para mostrar a tarefa na t
   containerTarefasAfazer.appendChild(div) // -> Adiciona div criada na linha 20 e com conteudo adicionado no container de tarefas (Linha 63 do index.html)
 }
 
-botaoAdicionarTarefa.addEventListener('click', function() { // -> Escuta o botao verde de adicionar
+// ----------------- Escutador de eventos para o botao de adicionar tarefa
+botaoAdicionarTarefa.addEventListener('click', function () { // -> Escuta o botao verde de adicionar
   const nomeTarefa = document.getElementById('mensagem').value // -> Pega o valor escrito no input
 
   if (nomeTarefa == null || nomeTarefa == '') { // -> Verifica se tem algo escrito no input
@@ -63,19 +66,36 @@ botaoAdicionarTarefa.addEventListener('click', function() { // -> Escuta o botao
   document.getElementById('mensagem').value = ''
 })
 
-botaoExcluir.addEventListener('click', function() {
-  console.log('click')
-})
-
+// ----------------------- Busca as tarefas no LocalStorage para adicionar a tela
 function buscarTarefasAfazer() { // -> Procura as tarefas da coluna `a fazer` dentro do localStorage para mostrar na tela
   const tarefas = localStorage.getItem('tarefasFazer') // -> Busca conteudo de dentro do localStorage
 
   if (tarefas != null || tarefas != undefined) {
     const lista = JSON.parse(tarefas)
 
-    for (let index = 0; index < lista.length; index++) {      
+    for (let index = 0; index < lista.length; index++) {
       criarTarefaAfazer(lista[index].nome) // -> Funcao para mostrar a tarefa na tela (Comeca na linha 19). O parametro nomeTarefa eh conteudo do input
     }
   }
 }
 buscarTarefasAfazer()
+
+// --------------- Funcionalidade do botao excluir
+function botaoExcluir() {
+  const botaoLixeira = document.querySelectorAll(".botao-excluir") // -> Busca todos os botoes com a classe botao-excluir
+  botaoLixeira.forEach((botao) => { // -> Percorre o array de botoes para adicionar um escutar de eventos de click
+    botao.addEventListener('click', function (event) { // -> Adiciona o escutar de eventos ao botao da lista
+      const elementoPai = event.target.parentNode.parentNode.parentNode // -> Busca o elemento do botao
+      elementoPai.remove() // -> Remove o elemento da tela
+
+      const nomeTarefa = elementoPai.querySelector('.nome-tarefa').textContent
+      const tarefasLocalStorage = JSON.parse(localStorage.getItem('tarefasFazer'))
+
+       const listaAtualizada = tarefasLocalStorage.filter((tarefa) => tarefa.nome != nomeTarefa)
+
+      localStorage.setItem('tarefasFazer', JSON.stringify(listaAtualizada))
+      
+    })
+  })
+}
+botaoExcluir() // Executa a funcao criada acima
